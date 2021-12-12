@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,9 +31,15 @@ public class customeController {
 	@Autowired
 	consumerDao customerdao;
 	
+	private static final Logger logger = LoggerFactory.getLogger(customeController.class);
+	
+	
+	
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<Optional<customer>> getCustomerbyid(@PathVariable ("id") long id) {
+		logger.info("--------------------------------------Customer producer-------------------------------");
 		Optional<customer> cust=customerservice.findById((int) id);
+		logger.info("Fetched the details of customer"+id);
 		return ResponseEntity.ok(cust);
 	}
 	
@@ -44,6 +52,7 @@ public class customeController {
 		cust.setAddress(customer.getAddress());
 		cust.setAge(customer.getAge());
 		customerservice.createCustomer(cust);
+		logger.info("Updated the details of customer by id"+id);
 		return ResponseEntity.ok(customerservice.createCustomer(cust));
 	}
 	
@@ -51,12 +60,14 @@ public class customeController {
 	@GetMapping("/getAllCustomerDetails")
 	@HystrixCommand(fallbackMethod = "customerFallbackGetAll")
 	public List<customer> getAll(){
+		logger.info("Fetched the details of  all customers");
 		return (List<customer>) customerservice.getAll();
 	}
 	
 	@PostMapping("/createCustomer")
 	@HystrixCommand(fallbackMethod = "CreateFallback")
 	public customer create(@RequestBody customer customer) {
+		logger.info("Created new customer");
 	return 	customerservice.createCustomer(customer);
 	}
 	
