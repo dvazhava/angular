@@ -21,7 +21,7 @@ import com.example.customerproducer.dao.consumerDao;
 import com.example.customerproducer.model.customer;
 import com.example.customerproducer.service.customerService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-@CrossOrigin(origins = "*")
+//CrossOrigin(origins = "*")
 @RestController
 public class customeController {
 	

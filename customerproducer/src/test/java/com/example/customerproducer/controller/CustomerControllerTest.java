@@ -3,7 +3,7 @@ package com.example.customerproducer.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.example.customerproducer.dao.consumerDao;
 import com.example.customerproducer.model.customer;
 import com.example.customerproducer.service.customerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,6 +31,9 @@ public class CustomerControllerTest {
 	
 	@Autowired
     private MockMvc mockMvc;
+	
+	@Autowired(required=true)
+	private consumerDao dao;
 	
 	@MockBean
 	private customerService customerservice;
